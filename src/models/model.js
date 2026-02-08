@@ -1,4 +1,4 @@
-import { generateConfirmationCode, yenToUsd } from '../includes/helpers.js';
+import { generateConfirmationCode, yenToUsd, numsToMonth } from '../includes/helpers.js';
 import { getDb as db } from './db-in-file.js';
 
 // ROUTE MODEL FUNCTIONS
@@ -146,7 +146,8 @@ export const getRouteWithSchedules = async (routeId) => {
 export const getCompleteRouteDetails = async (routeId) => {
     const route = await getRouteById(routeId);
     if (!route) return null;
-
+    route.operatingMonths = route.operatingMonths.map(number => numsToMonth(number));
+    
     const startStation = await getStationById(route.startStation);
     const endStation = await getStationById(route.endStation);
     const routeSchedules = await getSchedulesByRoute(routeId);
