@@ -32,6 +32,10 @@ const yenToUsd = (yen) => {
  * 
  */
 const numsToMonth = (month) => {
+    if (typeof month === 'string') {
+        return month;
+    }
+
     switch(month){
         case 1:
             month = 'Jan';
